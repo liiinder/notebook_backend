@@ -5,6 +5,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 
 let notes = [
     {
@@ -84,11 +85,21 @@ app.post('/api/notes', (req, res) => {
         date: new Date(),
         id: generateId()
     }
-    note.id = maxId + 1
 
     notes = notes.concat(note)
 
     res.json(note)
+})
+
+app.put('/api/notes/:id', (req, res) => {
+    const id = Number(req.params.id)
+    if (notes.find(note => note.id === id)) {
+        notes = notes.map(n => n.id !== id ? n : req.body)
+        res.json(req.body)
+    } else {
+        res.status(404).send(`There is no note with id #${id}`).end()
+    }
+
 })
 
 const unknownEndpoint = (request, response) => {
