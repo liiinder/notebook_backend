@@ -7,6 +7,14 @@ content-type: application/json
 }
 
 ###
+post http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content": "lolol"
+}
+
+###
 GET http://localhost:3001/api/notes
 
 ###
@@ -14,3 +22,12 @@ GET http://localhost:3001/api/notes/6266751cec634dbbcb9d38e1
 
 ###
 DEL http://localhost:3001/api/notes/6267d7ffcd70632a93fbf8f8
+
+###
+PUT http://localhost:3001/api/notes/6266751cec634dbbcb9d38e1 HTTP/1.1
+content-type: application/json
+
+{
+    "content": "HTML is easy",
+    "important": true
+}
